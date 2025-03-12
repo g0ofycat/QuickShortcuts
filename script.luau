@@ -24,13 +24,20 @@ tween:Play()
 ]],
 
 	["!ray"] = [[
-local origin = Vector3.new(0, 10, 0) 
-local direction = Vector3.new(0, -1, 0) -- // Downward
-local ray = Ray.new(origin, direction)
-local hit, position = workspace:FindPartOnRay(ray)
+local origin = Vector3.new(0, 10, 0)
+local direction = Vector3.new(0, -1, 0) -- Downward
+local raycastParams = RaycastParams.new()
+raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
+raycastParams.FilterDescendantsInstances = {} 
 
-if hit then
-	print("Hit:", hit, "Position:", position)
+local raycastResult = workspace:Raycast(origin, direction, raycastParams)
+
+if raycastResult then
+    local hit = raycastResult.Instance
+    local position = raycastResult.Position
+    print("Hit:", hit, "Position:", position)
+else
+    print("No hit detected")
 end
 ]],
 
